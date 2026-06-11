@@ -10,26 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Instalar dependencias
-        run: |
-          sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw6 cmake libffi-dev libssl-dev
-          pip3 install --user --upgrade buildozer
-
-      - name: Aceitar Licencas Android
-        run: |
-          # Cria a pasta de licenças
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          # Aceita todas as licenças automaticamente
-          yes | sdkmanager --licenses || true
-
-      - name: Compilar com Buildozer
-        run: buildozer android debug
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          command: buildozer android debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload do APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: package
