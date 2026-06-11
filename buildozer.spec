@@ -2,6 +2,8 @@
 title = SportPredictor
 package.name = sportpredictor
 package.domain = org.sportpredictor
+# Esta é a linha que faltava:
+version = 1.0
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 requirements = python3,kivy,requests,certifi,urllib3,idna,chardet
